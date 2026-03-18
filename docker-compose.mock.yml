@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  currencymock.niffler.dc:
+    container_name: currencymock.niffler.dc
+    image: adven27/grpc-wiremock:latest
+    volumes:
+      - ./wiremock/grpc:/wiremock      # WireMock stub mappings
+      - ./protos:/proto                 # Proto files for service definition
+    ports:
+      - "8888:8888"                     # WireMock admin UI
+      - "8094:8094"                     # gRPC mock service port
+    environment:
+      - GRPC_SERVER_PORT=8094
